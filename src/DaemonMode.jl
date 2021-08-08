@@ -456,11 +456,11 @@ Ask the server to run julia code in a string pass as parameters.
 - port: Port (default=3000).
 - output: stream in which it is shown the output of the run.
 """
-function runexpr(expr::AbstractString ; output = stdout, port = PORT)
+function runexpr(expr::AbstractString ; output = stdout, cwd=pwd(), port = PORT)
     try
         sock = Sockets.connect(port)
         println(sock, token_runexpr)
-        println(sock, pwd())
+        println(sock, cwd)
         println(sock, expr)
         println(sock, token_end)
 
